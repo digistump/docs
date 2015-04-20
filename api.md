@@ -14,9 +14,9 @@ The variables and functions that you have written in your firmware are exposed a
 
 All requests to the Oak Board come through our API server using TLS security.
 
-**Spark API Compatibility:** The RootCloud API has been developed as a completely new codebase in a clean room implementation, but these documents and the API structure are borrowed heavily from the [Spark](http://spark.io) project. While the RootCloud API was originally implmented as an entirely seperate API, the Spark API seemed structured in a way that would work well with the RootCloud devices, so in the interest on compatibility and standards we have built our API to be 99% compatible with the Spark API, while implementing many new features as well. 
+*Spark API Compatibility:* The RootCloud API has been developed as a completely new codebase in a clean room implementation, but these documents and the API structure are borrowed heavily from the [Spark](http://spark.io) project. While the RootCloud API was originally implmented as an entirely seperate API, the Spark API seemed structured in a way that would work well with the RootCloud devices, so in the interest on compatibility and standards we have built our API to be 99% compatible with the Spark API, while implementing many new features as well. 
 
-**Credit:** Much credit is do to the Spark team! They have created a very logical API implementation for talking to IoT devices, and graciously open sourced their documentation and some of their tools. A huge thanks to them!
+*Credit:* Much credit is do to the Spark team! They have created a very logical API implementation for talking to IoT devices, and graciously open sourced their documentation and some of their tools. A huge thanks to them!
 
 
 ```
@@ -498,6 +498,52 @@ And the response contains a `result` like this:
 In the RootCloud IDE, you will be able to register a URL on your own server
 to which we will POST each time one of your Oak Boards publishes a certain event. *This feature is still in progress, and will be released by the time the Kickstarter's ship.*
 
+#### Archived event data - RootCloud Data Explorer
+
+A feature unique to the RootCloud API is the ability to specify that an event should be archived, and later retrieve that archived data.
+
+Archived data from your devices can be explored and filtered with the RootCloud Data Explorer: https://data.rootcloud.io The RootCloud Data Explorer provides filtering and drill down capabilities and presents the corresponding REST API URL for the current filter set in use.
+
+You can also access archived data directly from the REST API:
+
+---
+
+Fetch all archived events (optionally matching the event_name), public and private, published by devices one owns:
+
+```
+GET /v1/devices/data[/:event_name]
+
+# EXAMPLE
+curl -H "Authorization: Bearer 38bb7b318cc6898c80317decb34525844bc9db55"
+https://api.rootcloud.io/v1/devices/data/temperature
+```
+
+---
+
+Fetch all archived events (optionally matching the event_name), public and private, published by a specific device:
+
+```
+GET /v1/devices/:device_id/data[/:event_name]
+
+# EXAMPLE
+curl -H "Authorization: Bearer 38bb7b318cc6898c80317decb34525844bc9db55"
+https://api.rootcloud.io/v1/devices/55ff70064939494339432586/data/temperature
+```
+
+---
+
+Filter the fetching of archived events (optionally matching the event_name) by a start and or end date:
+
+```
+GET /v1/devices/data[/:event_name]
+or
+GET /v1/devices/:device_id/data[/:event_name]
+
+# EXAMPLE
+curl -H "Authorization: Bearer 38bb7b318cc6898c80317decb34525844bc9db55"
+https://api.rootcloud.io/v1/devices/data/temperature?start=2015-04-19T12:59:23Z&end=2015-04-21T00:00:00Z
+```
+
 #### Subscribing to events
 
 You can make an API call that will open a stream of
@@ -573,10 +619,11 @@ curl https://api.rootcloud.io/v1/devices/events \
      -d "name=myevent" \
      -d "data=Hello World" \
      -d "private=true" \
-     -d "ttl=60"      
+     -d "ttl=0" \     
+     -d "archive=true"      
 ```
 
-"data", "private", and "ttl" are all optional.  You can also send these with the RootCloud CLI:
+"data", "private", "ttl", and "archive" are all optional.  You can also send these with the RootCloud CLI:
 
 ```
 # grab the rootcloud-cli here - Not yet available

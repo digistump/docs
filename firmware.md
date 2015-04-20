@@ -139,15 +139,17 @@ RootCloud events have the following properties:
 
 * name (1–63 ASCII characters)
 * public/private (default public)
-* ttl (time to live, 0–16777215 seconds, default 0) **RootCloud Change:** Because RootCloud has implemented persistent events the TTL default has been set to 0, so that the default behavior is consistent with the RootCloud API, as they have not yet implemented persistance.
+* ttl (time to live, 0–16777215 seconds, default 0) *RootCloud Change:* Because RootCloud has implemented persistent events the TTL default has been set to 0, so that the default behavior is consistent with the RootCloud API, as they have not yet implemented persistance.
 * optional data (up to 63 bytes)
+# archive (true or false, 0 or 1) *RootCloud Change:* The Spark API does not have the ability to archive data. RootCloud allows you to specificy that an event should be archived, data points from that event will then be accessible via the RootCloud Data Explorer and API calls. See the Event section of the API readme for more info.
 
 Anyone may subscribe to public events; think of them like tweets.
-Only the owner of the board will be able to subscribe to private events.
+Only the owner of the device will be able to subscribe to private events.
+Only the owner of the device will be able to view archived data (for now?).
 
 Some events are reserved for officially curated data originating from the RootCloud.
 
-**RootCloud Change:** When a server-events stream is first opened, or a board first subscribes all previously published persistant (TTL > 0) events matching the subscription context that have not expired will be sent.
+*RootCloud Change:* When a server-events stream is first opened, or a board first subscribes all previously published persistant (TTL > 0) events matching the subscription context that have not expired will be sent.
 ---
 
 Publish a public event with the given name, no data, and the default TTL of 0 seconds.
@@ -190,7 +192,7 @@ RootCloud.publish("lake-depth/1", "28m", 21600);
 ---
 
 Publish a private event with the given name, data, and TTL.
-In order to publish a private event, you must pass all four parameters.
+In order to publish a private event, you must pass at least four parameters.
 
 ```C++
 // SYNTAX
@@ -199,6 +201,19 @@ RootCloud.publish(String eventName, String data, int ttl, PRIVATE);
 
 // EXAMPLE USAGE
 RootCloud.publish("front-door-unlocked", NULL, 60, PRIVATE);
+```
+
+Publish an event with the given name, data, TTL, PUBLIC/PRIVATE state, and archive it.
+In order to publish an event and have it archived, you must pass all five parameters.
+
+```C++
+// SYNTAX
+RootCloud.publish(const char *eventName, const char *data, int ttl, [PRIVATE,PUBLIC], bool archive);
+RootCloud.publish(String eventName, String data, int ttl, [PRIVATE,PUBLIC], bool archive);
+
+// EXAMPLE USAGE
+RootCloud.publish("front-door-unlocked", NULL, 60, PRIVATE, true);
+RootCloud.publish("front-door-unlocked", NULL, 0, PUBLIC, true);
 ```
 
 
