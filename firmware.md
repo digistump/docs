@@ -139,9 +139,9 @@ RootCloud events have the following properties:
 
 * name (1–63 ASCII characters)
 * public/private (default public)
-* ttl (time to live, 0–16777215 seconds, default 0) ***RootCloud Change:** Because RootCloud has implemented persistent events the TTL default has been set to 0, so that the default behavior is consistent with the RootCloud API, as they have not yet implemented persistance.
+* ttl (time to live, 0–16777215 seconds, default 0) **RootCloud Change:** Because RootCloud has implemented persistent events the TTL default has been set to 0, so that the default behavior is consistent with the RootCloud API, as they have not yet implemented persistance.
 * optional data (up to 63 bytes)
-# archive (true or false, 0 or 1) ***RootCloud Change:** The Spark API does not have the ability to archive data. RootCloud allows you to specificy that an event should be archived, data points from that event will then be accessible via the RootCloud Data Explorer and API calls. See the Event section of the API readme for more info.
+# archive (true or false, 0 or 1) **RootCloud Change:** The Spark API does not have the ability to archive data. RootCloud allows you to specificy that an event should be archived, data points from that event will then be accessible via the RootCloud Data Explorer and API calls. See the Event section of the API readme for more info.
 
 Anyone may subscribe to public events; think of them like tweets.
 Only the owner of the device will be able to subscribe to private events.
@@ -149,7 +149,7 @@ Only the owner of the device will be able to view archived data (for now?).
 
 Some events are reserved for officially curated data originating from the RootCloud.
 
-***RootCloud Change:** When a server-events stream is first opened, or a board first subscribes all previously published persistant (TTL > 0) events matching the subscription context that have not expired will be sent.
+**RootCloud Change:** When a server-events stream is first opened, or a board first subscribes all previously published persistant (TTL > 0) events matching the subscription context that have not expired will be sent.
 
 ---
 
