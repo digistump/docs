@@ -6,7 +6,7 @@ Introduction
 
 **Spark Firmware Compatibility:** The Oak Firmware has been developed as a completely new codebase in a clean room implementation, but for compatibility many of the functions are similar to those used by the [Spark](http://spark.io) project. Many of these functions work differently then they do with a Spark device, but have similar parameters, returns, and uses - these differences are noted where they will affect the end user.
 
-**Credit:** Much credit is do to the Spark team! They have created a great platform and graciously open sourced their documentation and some of their tools. A huge thanks to them!
+**Credit:** Much credit is due to the Spark team! They have created a great platform and graciously open sourced their documentation and some of their tools. A huge thanks to them!
 
 Cloud Functions
 =====
@@ -533,7 +533,7 @@ This will return `true` once `WiFi.listen()` has been called and will return `fa
 
 ### WiFi.setCredentials()
 
-Allows the user to set credentials for the Wi-Fi network from within the code. These credentials will be added to the CC3000's memory, and the board will automatically attempt to connect to this network in the future.
+Allows the user to set credentials for the Wi-Fi network from within the code. These credentials will replace the current defaults and the board will automatically attempt to connect to this network in the future.
 
 ```cpp
 // Connects to an unsecured network.
@@ -552,11 +552,11 @@ WiFi.setCredentials("My_Router", "wepistheworst", WEP);
 
 ### WiFi.clearCredentials()
 
-This will clear all saved credentials from the CC3000's memory. This will return `true` on success and `false` if the CC3000 has an error.
+This will clear all saved credentials from memory. This will return `true` on success and `false` if there is an error.
 
 ### WiFi.hasCredentials()
 
-Will return `true` if there are Wi-Fi credentials stored in the CC3000's memory.
+Will return `true` if there are Wi-Fi credentials stored in memory.
 
 ### WiFi.macAddress()
 
@@ -4208,11 +4208,11 @@ If you have your pin configured as an `INPUT`, you will want the pin to have a r
 
 Pins Configured as `INPUT_PULLUP` or `INPUT_PULLDOWN`
 
-The STM32 microcontroller has internal pull-up resistors (resistors that connect to power internally) and pull-down resistors (resistors that connect to ground internally) that you can access. If you prefer to use these instead of external resistors, you can use these argument in `pinMode()`.
+The Oak microcontroller has internal pull-up resistors (resistors that connect to power internally) and pull-down resistors (resistors that connect to ground internally) that you can access. If you prefer to use these instead of external resistors, you can use these argument in `pinMode()`.
 
 Pins Configured as `OUTPUT`
 
-Pins configured as `OUTPUT` with `pinMode()`` are said to be in a low-impedance state. This means that they can provide a substantial amount of current to other circuits. STM32 pins can source (provide positive current) or sink (provide negative current) up to 20 mA (milliamps) of current to other devices/circuits. This makes them useful for powering LED's but useless for reading sensors. Pins configured as outputs can also be damaged or destroyed if short circuited to either ground or 3.3 volt power rails. The amount of current provided by the pin is also not enough to power most relays or motors, and some interface circuitry will be required.
+Pins configured as `OUTPUT` with `pinMode()`` are said to be in a low-impedance state. This means that they can provide a substantial amount of current to other circuits. Oak pins can source (provide positive current) or sink (provide negative current) up to 12 mA (milliamps) of current to other devices/circuits. This makes them useful for powering LED's but useless for reading sensors. Pins configured as outputs can also be damaged or destroyed if short circuited to either ground or 3.3 volt power rails. The amount of current provided by the pin is also not enough to power most relays or motors, and some interface circuitry will be required.
 
 ### true | false
 
