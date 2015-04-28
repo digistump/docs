@@ -16,7 +16,7 @@ All requests to the Oak Board come through our API server using TLS security.
 
 **Spark API Compatibility:** The RootCloud API has been developed as a completely new codebase in a clean room implementation, but these documents and the API structure are borrowed heavily from the [Spark](http://spark.io) project. While the RootCloud API was originally implmented as an entirely seperate API, the Spark API seemed structured in a way that would work well with the RootCloud devices, so in the interest on compatibility and standards we have built our API to be 99% compatible with the Spark API, while implementing many new features as well. 
 
-**Credit:** Much credit is do to the Spark team! They have created a very logical API implementation for talking to IoT devices, and graciously open sourced their documentation and some of their tools. A huge thanks to them!
+**Credit:** Much credit is due to the Spark team! They have created a very logical API implementation for talking to IoT devices, and graciously open sourced their documentation and some of their tools. A huge thanks to them!
 
 
 ```
